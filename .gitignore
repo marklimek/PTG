@@ -1,0 +1,43 @@
+.vs/
+/*.csproj
+/*.sln
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.opendb
+*.VC.db
+*.suo
+*.cache
+*.log
+
+# VS Code
+.vscode/
+
+# Rider
+.idea/
+
+# MonoDevelop / XamarinStudio
+*.unityproj
+
+# Build folders
+bin/
+obj/
+Build/
+Binaries/
+
+# Temporary files
+Temp/
+DerivedDataCache/
+
+# =============== Unity generated folders/files ================
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Mm]emoryCaptures/
+
