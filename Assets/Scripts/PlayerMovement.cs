@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float mouseSensitivity = 3f;
     [SerializeField] float moveSpeed = 3f;
+    public float MoveSpeed { get { return moveSpeed; } set { moveSpeed = value; } }
     [SerializeField] bool lockCursor = true;
 
     [SerializeField] [Range(0.0f, 0.5f)] float moveSmoothTime = 0.3f;
@@ -24,7 +25,6 @@ public class PlayerMovement : MonoBehaviour
     Vector2 currentMouse = Vector2.zero;
     Vector2 currentMouseVelocity = Vector2.zero;
 
-    // Start is called before the first frame update
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -35,7 +35,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         UpdateMouseLook();

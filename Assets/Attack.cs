@@ -14,7 +14,6 @@ public class Attack : MonoBehaviour
         enemyPos = GameObject.FindGameObjectWithTag("Enemy").transform;
     }
     
-    // Update is called once per frame
     void Update()
     {
 

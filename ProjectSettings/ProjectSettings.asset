@@ -765,11 +765,11 @@ PlayerSettings:
   captureStartupLogs: {}
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: 
+  cloudProjectId: 9ad9bb7a-caef-4d5b-abf0-fd6c4a094e48
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: PTG
+  organizationId: nkrzus95
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}

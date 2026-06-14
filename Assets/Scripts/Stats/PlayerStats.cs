@@ -7,7 +7,6 @@ public class PlayerStats : CharacterStats
 {
 
     private PlayerHUD hud;
-    // Start is called before the first frame update
     void Start()
     {
         hud = GetComponent<PlayerHUD>();
@@ -15,7 +14,6 @@ public class PlayerStats : CharacterStats
         Debug.Log("Player HP: "+maxHealth);
     }
 
-    // Update is called once per frame
     void Update()
     {
         

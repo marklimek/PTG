@@ -12,7 +12,6 @@ public class EnemyStats : CharacterStats
         Debug.Log("Enemy HP: "+maxHealth);
     }
 
-    // Update is called once per frame
     void Update()
     {
         

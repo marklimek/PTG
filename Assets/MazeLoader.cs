@@ -8,18 +8,19 @@ public class MazeLoader : MonoBehaviour
 	public GameObject wall;
 	public float size = 2f;
 
-	private Cells[,] mazeCells;
+	public Cells[,] mazeCells;
+	public System.Action OnMazeGenerated;
 
-	// Use this for initialization
 	void Start()
 	{
 		InitializeMaze();
 
 		MazeAlgorithm ma = new HuntAndKillMazeAlgorithm(mazeCells);
 		ma.CreateMaze();
+
+		OnMazeGenerated?.Invoke();
 	}
 
-	// Update is called once per frame
 	void Update()
 	{
 	}
@@ -35,7 +36,6 @@ public class MazeLoader : MonoBehaviour
 			{
 				mazeCells[r, c] = new Cells();
 
-				// For now, use the same wall object for the floor!
 				mazeCells[r, c].floor = Instantiate(wall, new Vector3(r * size, -(size / 2f), c * size), Quaternion.identity) as GameObject;
 				mazeCells[r, c].floor.name = "Floor " + r + "," + c;
 				mazeCells[r, c].floor.transform.Rotate(Vector3.right, 90f);
