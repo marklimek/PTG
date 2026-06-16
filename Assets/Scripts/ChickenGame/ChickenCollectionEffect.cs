@@ -101,7 +101,7 @@ public class ChickenCollectionEffect : MonoBehaviour
 
         GameObject canvasObj = new GameObject("FloatingTextCanvas", typeof(RectTransform), typeof(Canvas));
         canvasObj.transform.SetParent(effectParent.transform);
-        canvasObj.transform.localPosition = Vector3.up * 1.6f; 
+        canvasObj.transform.localPosition = Vector3.up * 0.5f; 
         
         Canvas canvas = canvasObj.GetComponent<Canvas>();
         canvas.renderMode = RenderMode.WorldSpace;
@@ -229,8 +229,28 @@ public class FeatherMotion : MonoBehaviour
 
 public class CollectionEffectSelfDestruct : MonoBehaviour
 {
-    private float lifetime = 1.5f;
-    private Vector3 floatSpeed = Vector3.up * 1.2f;
+    private float maxLifetime = 3.0f;
+    private float lifetime;
+    private Vector3 floatSpeed = Vector3.up * 0.4f;
+    private UnityEngine.UI.Text textComponent;
+    private UnityEngine.UI.Shadow shadowComponent;
+    private Color originalTextColor;
+    private Color originalShadowColor;
+
+    private void Start()
+    {
+        lifetime = maxLifetime;
+        textComponent = GetComponentInChildren<UnityEngine.UI.Text>();
+        if (textComponent != null)
+        {
+            originalTextColor = textComponent.color;
+        }
+        shadowComponent = GetComponentInChildren<UnityEngine.UI.Shadow>();
+        if (shadowComponent != null)
+        {
+            originalShadowColor = shadowComponent.effectColor;
+        }
+    }
 
     private void Update()
     {
@@ -242,6 +262,23 @@ public class CollectionEffectSelfDestruct : MonoBehaviour
         else
         {
             transform.position += floatSpeed * Time.deltaTime;
+
+            if (lifetime < 1.0f)
+            {
+                float alpha = Mathf.Clamp01(lifetime);
+                if (textComponent != null)
+                {
+                    Color c = originalTextColor;
+                    c.a *= alpha;
+                    textComponent.color = c;
+                }
+                if (shadowComponent != null)
+                {
+                    Color c = originalShadowColor;
+                    c.a *= alpha;
+                    shadowComponent.effectColor = c;
+                }
+            }
         }
     }
 }

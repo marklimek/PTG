@@ -723,37 +723,133 @@ public class ChickenGameManager : MonoBehaviour
         rb.isKinematic = true;
         rb.useGravity = false;
 
-        GameObject body = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+        Material yellowMat = CreateFlatColorMaterial("BeakYellow", Color.yellow);
+        Material redMat = CreateFlatColorMaterial("CombRed", Color.red);
+        Material blackMat = CreateFlatColorMaterial("EyeBlack", Color.black);
+
+        // Body - Sphere scaled as a horizontal egg (removing the vertical capsule "pot" shape)
+        GameObject body = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         body.name = "Body";
         body.transform.SetParent(chicken.transform);
         body.transform.localPosition = Vector3.zero;
-        body.transform.localScale = new Vector3(0.5f, 0.4f, 0.5f);
+        body.transform.localScale = new Vector3(0.55f, 0.48f, 0.7f);
         body.GetComponent<Renderer>().material = mat;
         Destroy(body.GetComponent<Collider>()); 
 
+        // Wings (Attached to Body so they move, bob, and tilt with it)
+        GameObject leftWing = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        leftWing.name = "LeftWing";
+        leftWing.transform.SetParent(body.transform);
+        leftWing.transform.localPosition = new Vector3(-0.48f, 0f, -0.05f);
+        leftWing.transform.localScale = new Vector3(0.12f, 0.5f, 0.6f);
+        leftWing.transform.localRotation = Quaternion.Euler(15f, 5f, 12f);
+        leftWing.GetComponent<Renderer>().material = mat;
+        Destroy(leftWing.GetComponent<Collider>());
+
+        GameObject rightWing = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        rightWing.name = "RightWing";
+        rightWing.transform.SetParent(body.transform);
+        rightWing.transform.localPosition = new Vector3(0.48f, 0f, -0.05f);
+        rightWing.transform.localScale = new Vector3(0.12f, 0.5f, 0.6f);
+        rightWing.transform.localRotation = Quaternion.Euler(15f, -5f, -12f);
+        rightWing.GetComponent<Renderer>().material = mat;
+        Destroy(rightWing.GetComponent<Collider>());
+
+        // Tail Feathers (Attached to Body)
+        GameObject tail = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        tail.name = "TailFeather";
+        tail.transform.SetParent(body.transform);
+        tail.transform.localPosition = new Vector3(0f, 0.25f, -0.45f);
+        tail.transform.localScale = new Vector3(0.25f, 0.5f, 0.25f);
+        tail.transform.localRotation = Quaternion.Euler(-35f, 0f, 0f);
+        tail.GetComponent<Renderer>().material = mat;
+        Destroy(tail.GetComponent<Collider>());
+
+        // Legs/Feet (Attached to root so they stay on ground while body bobs)
+        GameObject leftLeg = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        leftLeg.name = "LeftLeg";
+        leftLeg.transform.SetParent(chicken.transform);
+        leftLeg.transform.localPosition = new Vector3(-0.12f, -0.22f, 0.05f);
+        leftLeg.transform.localScale = new Vector3(0.06f, 0.16f, 0.06f);
+        leftLeg.GetComponent<Renderer>().material = yellowMat;
+        Destroy(leftLeg.GetComponent<Collider>());
+
+        GameObject rightLeg = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        rightLeg.name = "RightLeg";
+        rightLeg.transform.SetParent(chicken.transform);
+        rightLeg.transform.localPosition = new Vector3(0.12f, -0.22f, 0.05f);
+        rightLeg.transform.localScale = new Vector3(0.06f, 0.16f, 0.06f);
+        rightLeg.GetComponent<Renderer>().material = yellowMat;
+        Destroy(rightLeg.GetComponent<Collider>());
+
+        // HeadGroup (Pivot at the neck joint)
+        GameObject headGroup = new GameObject("HeadGroup");
+        headGroup.transform.SetParent(chicken.transform);
+        headGroup.transform.localPosition = new Vector3(0f, 0.15f, 0.2f);
+        headGroup.transform.localRotation = Quaternion.identity;
+
+        // Neck (Sleek neck cylinder connecting head to body, attached to headGroup)
+        GameObject neck = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+        neck.name = "Neck";
+        neck.transform.SetParent(headGroup.transform);
+        neck.transform.localPosition = new Vector3(0f, 0.06f, -0.02f);
+        neck.transform.localScale = new Vector3(0.16f, 0.1f, 0.16f);
+        neck.transform.localRotation = Quaternion.identity;
+        neck.GetComponent<Renderer>().material = mat;
+        Destroy(neck.GetComponent<Collider>());
+
+        // Head
         GameObject head = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         head.name = "Head";
-        head.transform.SetParent(chicken.transform);
-        head.transform.localPosition = new Vector3(0f, 0.35f, 0.2f);
-        head.transform.localScale = new Vector3(0.35f, 0.35f, 0.35f);
+        head.transform.SetParent(headGroup.transform);
+        head.transform.localPosition = new Vector3(0f, 0.22f, 0.02f);
+        head.transform.localScale = new Vector3(0.32f, 0.32f, 0.32f);
         head.GetComponent<Renderer>().material = mat;
         Destroy(head.GetComponent<Collider>());
 
+        // Eyes (Attached to HeadGroup)
+        GameObject leftEye = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        leftEye.name = "LeftEye";
+        leftEye.transform.SetParent(headGroup.transform);
+        leftEye.transform.localPosition = new Vector3(-0.11f, 0.25f, 0.11f);
+        leftEye.transform.localScale = new Vector3(0.06f, 0.06f, 0.06f);
+        leftEye.GetComponent<Renderer>().material = blackMat;
+        Destroy(leftEye.GetComponent<Collider>());
+
+        GameObject rightEye = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        rightEye.name = "RightEye";
+        rightEye.transform.SetParent(headGroup.transform);
+        rightEye.transform.localPosition = new Vector3(0.11f, 0.25f, 0.11f);
+        rightEye.transform.localScale = new Vector3(0.06f, 0.06f, 0.06f);
+        rightEye.GetComponent<Renderer>().material = blackMat;
+        Destroy(rightEye.GetComponent<Collider>());
+
+        // Beak
         GameObject beak = GameObject.CreatePrimitive(PrimitiveType.Cube);
         beak.name = "Beak";
-        beak.transform.SetParent(chicken.transform);
-        beak.transform.localPosition = new Vector3(0f, 0.35f, 0.42f);
-        beak.transform.localScale = new Vector3(0.12f, 0.08f, 0.15f);
-        beak.GetComponent<Renderer>().material = CreateFlatColorMaterial("BeakYellow", Color.yellow);
+        beak.transform.SetParent(headGroup.transform);
+        beak.transform.localPosition = new Vector3(0f, 0.2f, 0.22f);
+        beak.transform.localScale = new Vector3(0.1f, 0.08f, 0.14f);
+        beak.GetComponent<Renderer>().material = yellowMat;
         Destroy(beak.GetComponent<Collider>());
 
+        // Comb (Kogucik / Grzebień)
         GameObject comb = GameObject.CreatePrimitive(PrimitiveType.Cube);
         comb.name = "Comb";
-        comb.transform.SetParent(chicken.transform);
-        comb.transform.localPosition = new Vector3(0f, 0.55f, 0.15f);
-        comb.transform.localScale = new Vector3(0.08f, 0.15f, 0.18f);
-        comb.GetComponent<Renderer>().material = CreateFlatColorMaterial("CombRed", Color.red);
+        comb.transform.SetParent(headGroup.transform);
+        comb.transform.localPosition = new Vector3(0f, 0.39f, -0.02f);
+        comb.transform.localScale = new Vector3(0.06f, 0.12f, 0.16f);
+        comb.GetComponent<Renderer>().material = redMat;
         Destroy(comb.GetComponent<Collider>());
+
+        // Wattle (Dzwonek / broda pod dziobem)
+        GameObject wattle = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        wattle.name = "Wattle";
+        wattle.transform.SetParent(headGroup.transform);
+        wattle.transform.localPosition = new Vector3(0f, 0.11f, 0.16f);
+        wattle.transform.localScale = new Vector3(0.05f, 0.1f, 0.05f);
+        wattle.GetComponent<Renderer>().material = redMat;
+        Destroy(wattle.GetComponent<Collider>());
 
         BoxCollider trigger = chicken.AddComponent<BoxCollider>();
         trigger.isTrigger = true;
@@ -890,7 +986,12 @@ public class ChickenGameManager : MonoBehaviour
 
         if (playerObj != null)
         {
-            ChickenCollectionEffect.CreateWheelEffect(playerObj.transform.position, effectColor, effectText);
+            Vector3 spawnPos = playerObj.transform.position;
+            if (type == WheelType.Teleport || type == WheelType.Rewind)
+            {
+                spawnPos.y = -0.5f;
+            }
+            ChickenCollectionEffect.CreateWheelEffect(spawnPos, effectColor, effectText);
         }
 
         UpdateHUD();
