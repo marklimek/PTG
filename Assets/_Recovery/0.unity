@@ -4086,7 +4086,6 @@ MonoBehaviour:
   mazeColumns: 9
   wall: {fileID: 3637454017929097816, guid: 738bc7c3957bcd449bf96a8c9855e756, type: 3}
   size: 4
-  floorTex: {fileID: 2800000, guid: 68ae4ca22ee0b954d9db92fce087714c, type: 3}
 --- !u!1 &1898274273
 GameObject:
   m_ObjectHideFlags: 0

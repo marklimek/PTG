@@ -8,7 +8,9 @@ public class MazeLoader : MonoBehaviour
 	public GameObject wall;
 	public float size = 2f;
 
-	public Cells[,] mazeCells;
+    public Texture2D floorTex;
+
+    public Cells[,] mazeCells;
 	public System.Action OnMazeGenerated;
 
 	void Start()
@@ -29,20 +31,20 @@ public class MazeLoader : MonoBehaviour
 	{
 		mazeCells = new Cells[mazeRows, mazeColumns];
 
-		// Load realistic stone paving texture from Assets/Texture Bricks 'n Blocks/Textures
-		Texture2D floorTex = UnityEditor.AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Texture Bricks 'n Blocks/Textures/Block_pavers_diffuseOriginal.png");
+        // Load realistic stone paving texture from Assets/Texture Bricks 'n Blocks/Textures
+        //Texture2D floorTex = UnityEditor.AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Texture Bricks 'n Blocks/Textures/Block_pavers_diffuseOriginal.png");
 
-		// Create a realistic unlit desaturated material for both floor and walls
-		Material floorGrayMat = new Material(Shader.Find("Custom/UnlitDesaturate"));
-		floorGrayMat.name = "FloorGray";
-		floorGrayMat.SetColor("_Color", new Color(0.85f, 0.85f, 0.88f)); // Clean light gray tint
-		floorGrayMat.SetFloat("_Desaturation", 1.0f); // 100% greyscale
-		if (floorTex != null)
-		{
-			floorGrayMat.mainTexture = floorTex;
-		}
+        // Create a realistic unlit desaturated material for both floor and walls
+        Material floorGrayMat = new Material(Shader.Find("Custom/UnlitDesaturate"));
+        floorGrayMat.name = "FloorGray";
+        floorGrayMat.SetColor("_Color", new Color(0.85f, 0.85f, 0.88f));
+        floorGrayMat.SetFloat("_Desaturation", 1.0f);
+        if (floorTex != null)
+        {
+            floorGrayMat.mainTexture = floorTex;
+        }
 
-		for (int r = 0; r < mazeRows; r++)
+        for (int r = 0; r < mazeRows; r++)
 		{
 			for (int c = 0; c < mazeColumns; c++)
 			{

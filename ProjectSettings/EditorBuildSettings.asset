@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameOver.unity
     guid: 8e376737b55923d44b4dec6a2d901f5c
   - enabled: 1
@@ -18,3 +18,4 @@ EditorBuildSettings:
       type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000,
       guid: 352f032d68a554e46a3f5d6380c2a81f, type: 2}
+  m_UseUCBPForAssetBundles: 0

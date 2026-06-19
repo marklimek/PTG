@@ -118,6 +118,14 @@ public class ChickenGameManager : MonoBehaviour
 
     private void Update()
     {
+        if (introPanel != null && introPanel.activeSelf)
+        {
+            if (Cursor.lockState != CursorLockMode.None || !Cursor.visible)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+        }
         if (playerObj == null) return;
 
         Vector2Int playerCell = GetCellFromPosition(playerObj.transform.position);
