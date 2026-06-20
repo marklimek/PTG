@@ -1,0 +1,15 @@
+{
+    "asset": "05ff02d1d3becfa409fafc944bea5756",
+    "fileName": "019ee440-e98f-788d-a47f-80160cdcc064.mp3",
+    "prompt": "playful whimsical cartoon puzzle game background music, upbeat tempo, pizzicato strings, marimba, light woodwinds, fun and sneaky, cute adventure theme, loopable style",
+    "negativePrompt": "",
+    "model": "google-lyria-3-clip",
+    "modelName": "Google Lyria 3 Clip",
+    "customSeed": -1,
+    "w3CTraceId": "",
+    "feedback": 0,
+    "duration": 10.0,
+    "autoTrim": false,
+    "hasReference": false,
+    "voice": ""
+}

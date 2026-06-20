@@ -1,0 +1,15 @@
+{
+    "asset": "05a6d4de2cadcdd4e8667a3906590a9c",
+    "fileName": "019ee43c-5915-77e3-9011-f3daa47f678c.mp3",
+    "prompt": "cheerful cartoon farm game background music, acoustic guitar, banjo, light marimba, loopable, joyful, country style",
+    "negativePrompt": "",
+    "model": "google-lyria-3-clip",
+    "modelName": "Google Lyria 3 Clip",
+    "customSeed": -1,
+    "w3CTraceId": "",
+    "feedback": 0,
+    "duration": 10.0,
+    "autoTrim": false,
+    "hasReference": false,
+    "voice": ""
+}

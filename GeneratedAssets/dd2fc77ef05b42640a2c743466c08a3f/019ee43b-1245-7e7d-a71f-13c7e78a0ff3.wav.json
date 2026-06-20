@@ -1,0 +1,15 @@
+{
+    "asset": "dd2fc77ef05b42640a2c743466c08a3f",
+    "fileName": "019ee43b-1245-7e7d-a71f-13c7e78a0ff3.wav",
+    "prompt": "a cute happy chicken cluck sound, brief cartoonish chicken cluck sound effect, high quality",
+    "negativePrompt": "",
+    "model": "elevenlabs-sound-effects-v2",
+    "modelName": "ElevenLabs Sound Effects V2",
+    "customSeed": -1,
+    "w3CTraceId": "",
+    "feedback": 0,
+    "duration": 2.0,
+    "autoTrim": false,
+    "hasReference": false,
+    "voice": ""
+}

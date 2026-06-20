@@ -50,6 +50,12 @@ public class ChickenGameManager : MonoBehaviour
     public Material hintWheelMat;
     public Material rewindWheelMat;
 
+    [Header("Audio Settings (Will auto-setup if null)")]
+    public AudioClip bgmClip;
+    public AudioClip chickenCluckClip;
+    private AudioSource bgmSource;
+    private AudioSource sfxSource;
+
     [Header("UI Canvas References (Will auto-setup if null)")]
     public Canvas gameCanvas;
     public Text scoreText;
@@ -114,6 +120,7 @@ public class ChickenGameManager : MonoBehaviour
 
         SetupMaterials();
         SetupUI();
+        SetupAudio();
     }
 
     private void Update()
@@ -919,6 +926,62 @@ public class ChickenGameManager : MonoBehaviour
         }
         
         AddPoints(pts);
+        PlayChickenCluckSound();
+    }
+
+    private void SetupAudio()
+    {
+        if (bgmSource == null)
+        {
+            bgmSource = gameObject.AddComponent<AudioSource>();
+            bgmSource.loop = true;
+            bgmSource.playOnAwake = false;
+            bgmSource.volume = 0.25f;
+        }
+
+        if (sfxSource == null)
+        {
+            sfxSource = gameObject.AddComponent<AudioSource>();
+            sfxSource.loop = false;
+            sfxSource.playOnAwake = false;
+            sfxSource.volume = 0.8f;
+        }
+
+#if UNITY_EDITOR
+        if (bgmClip == null)
+        {
+            bgmClip = UnityEditor.AssetDatabase.LoadAssetAtPath<AudioClip>("Assets/Audio/BackgroundMusic 1.wav");
+            if (bgmClip == null)
+            {
+                bgmClip = UnityEditor.AssetDatabase.LoadAssetAtPath<AudioClip>("Assets/Audio/BackgroundMusic.wav");
+            }
+        }
+        if (chickenCluckClip == null)
+        {
+            chickenCluckClip = UnityEditor.AssetDatabase.LoadAssetAtPath<AudioClip>("Assets/Audio/ChickenCluck.wav");
+        }
+#endif
+
+        if (bgmClip != null)
+        {
+            bgmSource.clip = bgmClip;
+            if (!bgmSource.isPlaying)
+            {
+                bgmSource.Play();
+            }
+        }
+        else
+        {
+            Debug.LogWarning("ChickenGameManager: Background music clip is not assigned!");
+        }
+    }
+
+    public void PlayChickenCluckSound()
+    {
+        if (sfxSource != null && chickenCluckClip != null)
+        {
+            sfxSource.PlayOneShot(chickenCluckClip);
+        }
     }
 
     public void AddPoints(int pts)
@@ -1296,6 +1359,11 @@ public class ChickenGameManager : MonoBehaviour
         if (playerMovement != null) playerMovement.enabled = false;
 
         gameOverPanel.SetActive(true);
+
+        if (bgmSource != null)
+        {
+            bgmSource.Stop();
+        }
 
         string trophy = "Brązowe 🥉";
         Color trophyColor = new Color(0.8f, 0.5f, 0.2f); 
